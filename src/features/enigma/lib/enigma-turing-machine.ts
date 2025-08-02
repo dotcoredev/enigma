@@ -9,7 +9,7 @@ export class EnigmaTuringMachine {
 		this.enigmaKey = enigmaKey;
 		this.result = [];
 
-		// Роторы — классическая замена алфавита
+		// Роторы
 		this.rotors = [
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
 			"EKMFLGDQVZNTOWYHXUSPAIBRCJ".split(""),
@@ -17,7 +17,7 @@ export class EnigmaTuringMachine {
 			"BDFHJLCPRTXVZNYEIWGAKMUSQO".split(""),
 		];
 
-		// Рефлектор (отражатель) — как в Enigma
+		// Рефлектор (отражатель)
 		this.reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT".split(""); // Reflector B
 
 		// Начальные позиции роторов (ключ шифрования)
@@ -27,12 +27,9 @@ export class EnigmaTuringMachine {
 	clear() {
 		this.rotorPosition = [...this.enigmaKey];
 		this.result = [];
-		console.log(222, this.enigmaKey, this.rotorPosition);
 	}
 
 	step(letter: string) {
-		console.log(111, this.enigmaKey, this.rotorPosition);
-
 		this.result = [];
 		let char = letter.toUpperCase();
 
@@ -56,11 +53,10 @@ export class EnigmaTuringMachine {
 			const shiftedIndex = (indexInRotor - offset + 26) % 26;
 			char = this.rotors[0][shiftedIndex];
 		}
-
-		// Заменяем символ на ленте
+		// Добавляем символ в результат
 		this.result.push(char);
 
-		// Вращаем роторы (как в настоящей Enigma)
+		// Вращаем роторы
 		this.rotorPosition[0]++;
 		if (this.rotorPosition[0] >= 26) {
 			this.rotorPosition[0] = 0;
